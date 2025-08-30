@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object %}
+<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+{% else %}
+<h1>Add Hero</h1>
+{% endif %}
+
+<!-- add this enctype="multipart/form-data" in form for images -->
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table style="margin-bottom: 20px;">
+    {{ form.as_table }}
+  </table>
+  <div style="text-align: center;">
+    <input type="submit" value="Submit!" class="btn" style="text-transform:none; width: 200px; max-width: 100%;">
+    <a href="{% url 'index' %}" class="btn grey" style="text-transform:none; width: 200px; max-width: 100%;">Back</a>
+  </div>
+</form>
+
+{% endblock %}

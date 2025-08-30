@@ -1,0 +1,23 @@
+from django.db import models
+from django.urls import reverse
+
+# Create your models here.
+class Hero(models.Model):
+    name = models.CharField(max_length=100)
+    breed = models.CharField(max_length=100)
+    description = models.TextField(max_length=250)
+    age = models.IntegerField()
+    image = models.ImageField(upload_to='mainapp/static/uploads', default='') # to upload image - you need to run library Pillow for image  pip install Pillow
+    
+    # This shows the object name in Django admin instead of Object desc
+    def __str__(self):
+        return self.name
+        # return f"{self.name}, {self.age}"
+        
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'hero_id': self.id})
+    
+class Weapon(models.Model):
+    name = models.CharField(max_length=100)
+    power = models.IntegerField()
+    hero = models.ForeignKey(Hero, on_delete=models.CASCADE)

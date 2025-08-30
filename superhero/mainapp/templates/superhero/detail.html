@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="blue-text text-lighten-1">Hero Details</h1>
+<div class="card">
+    <div class="card-content">
+        <div class="flex-container">
+            <div>
+                <span class="card-title">{{ hero.name }}</span>
+                <p>Breed: {{ hero.breed }}</p>
+                <p>Description: {{ hero.description }}</p>
+                <p>Age: {{ hero.age }}</p>
+            </div>
+            <div class="card-image">
+                {% load static %}
+                <img src="{% static hero.image|cut:'mainapp/static/' %}" alt="{{ hero.name }}"
+                    style="max-width: 150px; border-radius: 8px;" />
+            </div>
+        </div>
+    </div>
+    <div class="card-action">
+        <a href="{% url 'hero_update' hero.id %}" class="btn blue" style="text-transform:none;">Edit</a>
+        <a href="{% url 'hero_delete' hero.id %}" class="btn red" style="text-transform:none;">Delete</a>
+        <a href="{% url 'index' %}" class="btn grey" style="text-transform:none;">Back</a>
+    </div>
+</div>
+<div>
+    <form action="{% url 'add_weapon' hero.id %}" method="post">
+        {% csrf_token %}
+        {{ weapon_form.as_p }}
+        <input type="submit" class="btn" style="text-transform:none;" value="Add Weapon">
+    </form>
+</div>
+<div style="max-height: 300px; overflow-y: auto;">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Power</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for weapon in hero.weapon_set.all %}
+            <tr>
+                <td>{{weapon.name}}</td>
+                <td>{{weapon.power}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2">No Weapon yet</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        M.updateTextFields();
+    });
+</script>
+{% endblock %}
