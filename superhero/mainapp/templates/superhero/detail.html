@@ -24,7 +24,7 @@
     </div>
 </div>
 <div>
-    <form action="{% url 'add_weapon' hero.id %}" method="post">
+    <form id="add_weapon" action="{% url 'add_weapon' hero.id %}" method="post">
         {% csrf_token %}
         {{ weapon_form.as_p }}
         <input type="submit" class="btn" style="text-transform:none;" value="Add Weapon">
@@ -52,9 +52,5 @@
         </tbody>
     </table>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        M.updateTextFields();
-    });
-</script>
+
 {% endblock %}

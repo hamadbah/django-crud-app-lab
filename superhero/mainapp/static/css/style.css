@@ -17,3 +17,21 @@ body {
     display: flex;
     justify-content: space-between;
   }
+
+  #add_weapon #id_name{
+    background-color: lightgrey;
+    color: black;
+    font-size:x-large;
+  }
+
+  #add_weapon #id_power{
+    background-color: lightgrey;
+    color: black;
+    font-size:x-large;
+  }
+
+  #add_weapon label{
+    color: black;
+    font-style: italic;
+    font-weight: bolder;
+  }
