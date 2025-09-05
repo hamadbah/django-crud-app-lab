@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from . models import Hero
+from . models import Hero, Enemy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .forms import WeaponForm
 
 class HeroCreate(CreateView):
@@ -39,3 +40,21 @@ def add_weapon(request, hero_id):
         new_waepon.save()
     return redirect('detail', hero_id = hero_id)
 
+class EnemyList(ListView):
+    model = Enemy
+    
+class EnemyDetail(DetailView):
+    model = Enemy
+    
+class EnemyCreate(CreateView):
+    model = Enemy
+    fields = ['name','attack_power','speed']
+    # fileds = '__all__' # Mean all the Fields
+    
+class EnemyUpdate(UpdateView):
+    model = Enemy
+    fields = ['name','attack_power','speed']
+
+class EnemyDelete(DeleteView):
+    model = Enemy
+    success_url = '/enemies/'
