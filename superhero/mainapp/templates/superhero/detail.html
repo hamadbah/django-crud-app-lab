@@ -52,5 +52,51 @@
         </tbody>
     </table>
 </div>
-
+<hr>
+<div class="row">
+    <div class="col s6">
+        <h3>{{ hero.name }}'s Enemies</h3>
+        {% if hero.enemies.count %}
+        {% for enemy in hero.enemies.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">
+                    A <span>{{ enemy.name }}</span>
+                </span>
+            </div>
+            <div class="card-action">
+                <form action="{% url 'unassoc_enemy' hero.id enemy.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Remove</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5>No Enemies :(</h5>
+        {% endif %}
+    </div>
+    <div class="col s6">
+        <h3>Available Enemies</h3>
+        {% if enemies.count %}
+        {% for enemy in enemies.all %}
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">
+                    A <span>{{ enemy.name }}</span>
+                </span>
+            </div>
+            <div class="card-action">
+                <form action="{% url 'assoc_enemy' hero.id enemy.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Add</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h5>{{hero.name}} Already Has All Enemies Available</h5>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

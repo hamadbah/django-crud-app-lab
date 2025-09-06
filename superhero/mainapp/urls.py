@@ -16,4 +16,8 @@ urlpatterns = [
     path('enemies/create/', views.EnemyCreate.as_view(), name='enemies_create'),
     path('enemies/<int:pk>/update/', views.EnemyUpdate.as_view(), name='enemies_update'),
     path('enemies/<int:pk>/delete/', views.EnemyDelete.as_view(), name='enemies_delete'),
+    
+    #Associate and Un Associate a toy with a cat this is for many to many relationship
+    path('superhero/<int:hero_id>/assoc_enemy/<int:enemy_id>/',views.assoc_enemy, name='assoc_enemy'),
+    path('superhero/<int:hero_id>/unassoc_enemy/<int:enemy_id>/',views.unassoc_enemy, name='unassoc_enemy'),
 ]

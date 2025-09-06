@@ -29,8 +29,9 @@ def hero_index(request):
 
 def hero_detail(request, hero_id):
     hero = Hero.objects.get(id=hero_id)
+    enemies_hero_doesnt_have = Enemy.objects.exclude(id__in = hero.enemies.all().values_list('id'))
     weapon_form = WeaponForm()
-    return render(request,'superhero/detail.html', {'hero' : hero, 'weapon_form': weapon_form})
+    return render(request,'superhero/detail.html', {'hero' : hero, 'weapon_form': weapon_form, 'enemies': enemies_hero_doesnt_have})
 
 def add_weapon(request, hero_id):
     form = WeaponForm(request.POST)
@@ -58,3 +59,11 @@ class EnemyUpdate(UpdateView):
 class EnemyDelete(DeleteView):
     model = Enemy
     success_url = '/enemies/'
+
+def assoc_enemy(request, hero_id, enemy_id):
+    Hero.objects.get(id=hero_id).enemies.add(enemy_id)
+    return redirect('detail', hero_id=hero_id)
+
+def unassoc_enemy(request, hero_id, enemy_id):
+    Hero.objects.get(id=hero_id).enemies.remove(enemy_id)
+    return redirect('detail', hero_id=hero_id)
