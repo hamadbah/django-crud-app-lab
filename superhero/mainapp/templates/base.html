@@ -20,10 +20,21 @@
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
+                    {% if user.is_authenticated %}
                     <li><a href="{% url 'hero_create' %}">Add New Hero</a></li>
                     <li><a href="{% url 'index' %}">View All SuperHeros</a></li>
                     <li><a href="{% url 'enemies_create' %}">Add an Enemy</a></li>
                     <li><a href="{% url 'enemies_index' %}">View All Enemies</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Log Out</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

@@ -20,4 +20,6 @@ urlpatterns = [
     #Associate and Un Associate a toy with a cat this is for many to many relationship
     path('superhero/<int:hero_id>/assoc_enemy/<int:enemy_id>/',views.assoc_enemy, name='assoc_enemy'),
     path('superhero/<int:hero_id>/unassoc_enemy/<int:enemy_id>/',views.unassoc_enemy, name='unassoc_enemy'),
+    
+    path('accounts/signup/', views.signup, name='signup')
 ]

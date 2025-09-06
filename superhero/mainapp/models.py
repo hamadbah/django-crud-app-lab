@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Enemy(models.Model):
@@ -20,6 +21,7 @@ class Hero(models.Model):
     age = models.IntegerField()
     image = models.ImageField(upload_to='mainapp/static/uploads', default='') # to upload image - you need to run library Pillow for image  pip install Pillow
     enemies = models.ManyToManyField(Enemy)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     # This shows the object name in Django admin instead of Object desc
     def __str__(self):
